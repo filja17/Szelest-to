@@ -1,0 +1,305 @@
+/* ============================================
+   ABOUT PAGE
+============================================ */
+.about-intro {
+  padding: 12rem 4vw 8rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8rem;
+  align-items: center;
+}
+
+.about-intro__tagline {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.about-intro__tagline em {
+  color: var(--gold);
+  font-style: italic;
+  display: block;
+}
+
+.about-intro__text p {
+  font-size: 1rem;
+  line-height: 2;
+  margin-bottom: 1.5rem;
+  color: var(--text-muted);
+}
+
+/* ============================================
+   STORY TIMELINE
+============================================ */
+.story {
+  padding: 8rem 4vw;
+  background: var(--marble);
+}
+
+.story__header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 6rem;
+}
+
+.timeline {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--gold) 10%, var(--gold) 90%, transparent);
+  transform: translateX(-50%);
+}
+
+.timeline__item {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  gap: 0;
+  margin-bottom: 5rem;
+  align-items: center;
+}
+
+.timeline__item:nth-child(even) .timeline__content {
+  grid-column: 3;
+  grid-row: 1;
+  text-align: left;
+  padding-left: 3rem;
+}
+
+.timeline__item:nth-child(even) .timeline__visual {
+  grid-column: 1;
+  grid-row: 1;
+  text-align: right;
+  padding-right: 3rem;
+}
+
+.timeline__dot {
+  width: 12px;
+  height: 12px;
+  background: var(--gold);
+  border-radius: 50%;
+  margin: 0 auto;
+  position: relative;
+  grid-column: 2;
+}
+
+.timeline__dot::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1px solid rgba(184, 150, 90, 0.4);
+  border-radius: 50%;
+}
+
+.timeline__content {
+  padding-right: 3rem;
+}
+
+.timeline__content h3 {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+  color: var(--ink);
+}
+
+.timeline__content p {
+  font-size: 0.9rem;
+  line-height: 1.9;
+  color: var(--text-muted);
+}
+
+.timeline__visual img {
+  width: 100%;
+  max-width: 300px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.timeline__visual .timeline__caption {
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 0.8rem;
+  display: block;
+}
+
+/* ============================================
+   TECHNIQUE SECTION
+============================================ */
+.technique {
+  padding: 8rem 4vw;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.technique__header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.technique__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem;
+}
+
+.technique__step {
+  text-align: center;
+  position: relative;
+}
+
+.technique__step-num {
+  font-family: var(--font-serif);
+  font-size: 4rem;
+  color: rgba(184, 150, 90, 0.12);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.technique__step-img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+  filter: grayscale(20%);
+  transition: filter 0.4s;
+}
+
+.technique__step:hover .technique__step-img {
+  filter: grayscale(0%);
+}
+
+.technique__step h4 {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  color: var(--ink);
+}
+
+.technique__step p {
+  font-size: 0.85rem;
+  line-height: 1.8;
+}
+
+/* ============================================
+   PORTRAIT SECTION
+============================================ */
+.portrait {
+  padding: 8rem 4vw;
+  background: var(--ink);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  max-width: 1300px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.portrait__img-frame {
+  position: relative;
+}
+
+.portrait__img-frame img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  object-position: top;
+}
+
+.portrait__img-frame::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 70%;
+  height: 70%;
+  border: 1px solid rgba(184, 150, 90, 0.3);
+  pointer-events: none;
+}
+
+.portrait__text .section__label {
+  color: rgba(184, 150, 90, 0.7);
+}
+
+.portrait__text h2 {
+  color: var(--cream);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  margin-bottom: 2rem;
+}
+
+.portrait__text p {
+  color: rgba(245, 240, 232, 0.55);
+  line-height: 2;
+  margin-bottom: 1.5rem;
+}
+
+.portrait__signature {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-style: italic;
+  color: var(--gold-light);
+  margin-top: 2rem;
+}
+
+/* ============================================
+   ABOUT RESPONSIVE
+============================================ */
+@media (max-width: 900px) {
+  .about-intro {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding: 10rem 4vw 5rem;
+  }
+
+  .timeline::before { display: none; }
+
+  .timeline__item {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  .timeline__item:nth-child(even) .timeline__content,
+  .timeline__item:nth-child(odd) .timeline__content {
+    grid-column: 1;
+    grid-row: 2;
+    padding: 0;
+    text-align: left;
+  }
+
+  .timeline__item:nth-child(even) .timeline__visual,
+  .timeline__item:nth-child(odd) .timeline__visual {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 0;
+    text-align: left;
+  }
+
+  .timeline__dot { display: none; }
+
+  .technique__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .portrait {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .technique__grid {
+    grid-template-columns: 1fr;
+  }
+}
