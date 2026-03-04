@@ -1,0 +1,189 @@
+/* ============================================
+   DARK OVERRIDE
+   Dołącz do products.html i about.html
+   po style.css i odpowiednim css strony
+============================================ */
+
+/* === BASE === */
+body {
+  background: #0e0c0a !important;
+  color: rgba(245, 240, 232, 0.8);
+}
+
+/* === NAV === */
+.nav {
+  background: transparent !important;
+}
+
+.nav.scrolled {
+  background: rgba(14, 12, 10, 0.94) !important;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.1) !important;
+  backdrop-filter: blur(16px) !important;
+}
+
+.nav__logo {
+  color: rgba(245, 240, 232, 0.85) !important;
+}
+
+.nav__logo span {
+  color: rgba(201, 169, 110, 0.8) !important;
+}
+
+.nav__links a {
+  color: rgba(245, 240, 232, 0.55) !important;
+}
+
+.nav__links a:hover {
+  color: rgba(201, 169, 110, 0.9) !important;
+}
+
+.nav__links a::after {
+  background: rgba(201, 169, 110, 0.7) !important;
+}
+
+.nav__cart {
+  color: rgba(245, 240, 232, 0.55) !important;
+}
+
+.nav__cart:hover {
+  color: rgba(201, 169, 110, 0.9) !important;
+}
+
+.nav__hamburger span {
+  background: rgba(245, 240, 232, 0.7) !important;
+}
+
+.nav__mobile {
+  background: #0e0c0a !important;
+}
+
+.nav__mobile a {
+  color: rgba(245, 240, 232, 0.7) !important;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.nav__mobile a:hover {
+  color: rgba(201, 169, 110, 0.9) !important;
+}
+
+/* === CART COUNT === */
+.cart-count {
+  background: rgba(201, 169, 110, 0.85) !important;
+}
+
+/* === CART DRAWER === */
+.cart-drawer {
+  background: #141210 !important;
+  border-left: 1px solid rgba(201, 169, 110, 0.08) !important;
+}
+
+.cart-drawer__header {
+  border-bottom-color: rgba(201, 169, 110, 0.12) !important;
+}
+
+.cart-drawer__header h3 {
+  color: rgba(245, 240, 232, 0.75) !important;
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 300 !important;
+}
+
+.cart-close {
+  color: rgba(245, 240, 232, 0.35) !important;
+}
+
+.cart-close:hover {
+  color: rgba(201, 169, 110, 0.8) !important;
+}
+
+.cart-empty p {
+  color: rgba(245, 240, 232, 0.3) !important;
+}
+
+.cart-item__name {
+  color: rgba(245, 240, 232, 0.8) !important;
+}
+
+.cart-item__price {
+  color: rgba(201, 169, 110, 0.8) !important;
+}
+
+.cart-item__remove {
+  color: rgba(245, 240, 232, 0.3) !important;
+}
+
+.cart-item__remove:hover {
+  color: rgba(201, 169, 110, 0.7) !important;
+}
+
+.cart-drawer__footer {
+  border-top-color: rgba(201, 169, 110, 0.1) !important;
+}
+
+.cart-total {
+  color: rgba(245, 240, 232, 0.65) !important;
+}
+
+.cart-total span:last-child {
+  color: rgba(201, 169, 110, 0.85) !important;
+}
+
+/* === PAGE TRANSITION === */
+.page-transition {
+  background: #0e0c0a !important;
+}
+
+/* === SECTION LABEL === */
+.section__label {
+  color: rgba(201, 169, 110, 0.6) !important;
+}
+
+/* === DIVIDER === */
+.divider {
+  background: rgba(201, 169, 110, 0.2) !important;
+}
+
+/* === BUTTONS === */
+.btn--outline {
+  border-color: rgba(201, 169, 110, 0.4) !important;
+  color: rgba(201, 169, 110, 0.8) !important;
+}
+
+.btn--outline:hover {
+  background: rgba(201, 169, 110, 0.9) !important;
+  color: #0e0c0a !important;
+}
+
+.btn--outline::before {
+  background: rgba(201, 169, 110, 0.9) !important;
+}
+
+.btn--solid {
+  background: rgba(201, 169, 110, 0.9) !important;
+  border-color: transparent !important;
+  color: #0e0c0a !important;
+}
+
+.btn--solid:hover {
+  background: transparent !important;
+  border-color: rgba(201, 169, 110, 0.5) !important;
+  color: rgba(201, 169, 110, 0.9) !important;
+}
+
+.btn--dark {
+  background: rgba(245, 240, 232, 0.08) !important;
+  border-color: rgba(245, 240, 232, 0.15) !important;
+  color: rgba(245, 240, 232, 0.7) !important;
+}
+
+.btn--dark:hover {
+  background: rgba(201, 169, 110, 0.9) !important;
+  border-color: transparent !important;
+  color: #0e0c0a !important;
+}
+
+/* === TOAST === */
+#toastNotif {
+  background: #1a1714 !important;
+  color: rgba(245, 240, 232, 0.8) !important;
+  border: 1px solid rgba(201, 169, 110, 0.15) !important;
+}
