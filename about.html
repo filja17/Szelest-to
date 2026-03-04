@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O Nas — EBRU Studio</title>
+  <meta name="description"
+        content="Historia ebru studio. Technika. Pasja. Kobieta za każdą chustą.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/about.css">
+</head>
+<body>
+
+  <div class="page-transition" id="pageTransition"></div>
+
+  <!-- NAV -->
+  <nav class="nav" id="mainNav">
+    <a href="index.html" class="nav__logo">ebru<span>.</span></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Główna</a></li>
+      <li><a href="products.html">Kolekcja</a></li>
+      <li><a href="about.html">O Nas</a></li>
+    </ul>
+    <div class="nav__cart" id="cartToggle">
+      <span>Koszyk</span>
+      <span class="cart-count" id="cartCount">0</span>
+    </div>
+    <div class="nav__hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <div class="nav__mobile" id="mobileMenu">
+    <a href="index.html" onclick="closeMobile()">Główna</a>
+    <a href="products.html" onclick="closeMobile()">Kolekcja</a>
+    <a href="about.html" onclick="closeMobile()">O Nas</a>
+    <a href="#" onclick="closeMobile(); openCart()">Koszyk</a>
+  </div>
+
+  <!-- CART DRAWER -->
+  <div class="cart-overlay" id="cartOverlay">
+    <div class="cart-drawer" id="cartDrawer">
+      <div class="cart-drawer__header">
+        <h3>Twój Koszyk</h3>
+        <button class="cart-close" id="cartClose">✕</button>
+      </div>
+      <div class="cart-items" id="cartItems">
+        <div class="cart-empty" id="cartEmpty">
+          <span style="font-size:2rem;opacity:0.3;">◇</span>
+          <p>Twój koszyk jest pusty.<br>Odkryj naszą kolekcję.</p>
+          <a href="products.html" class="btn btn--outline" style="margin-top:1rem">
+            Przeglądaj
+          </a>
+        </div>
+      </div>
+      <div class="cart-drawer__footer" id="cartFooter" style="display:none">
+        <div class="cart-total">
+          <span>Razem</span>
+          <span id="cartTotal">0 PLN</span>
+        </div>
+        <button class="btn btn--dark" style="width:100%;margin-bottom:0.8rem">
+          Przejdź do Kasy
+        </button>
+        <p style="text-align:center;font-size:0.72rem;letter-spacing:0.1em;
+                  color:var(--text-muted)">
+          Bezpieczna płatność · Darmowa dostawa od 500 PLN
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ABOUT INTRO ============ -->
+  <div class="about-intro">
+    <div data-reveal>
+      <span class="section__label">Nasza Filozofia</span>
+      <h1 class="about-intro__tagline">
+        Sztuka nie powstaje.<br>
+        <em>Ona się wydarza.</em>
+      </h1>
+    </div>
+    <div data-reveal data-reveal-delay="2">
+      <p>
+        Ebru studio to jednoosobowa pracownia gdzieś na granicy
+        rzemiosła i sztuki. Każda chusta która stąd wychodzi —
+        wychodzi jako jedyna w swoim rodzaju. Nie ma tu kopii,
+        serii, powtórzeń.
+      </p>
+      <p>
+        Pracuję z wodą, igłą i pigmentem. Pracuję
+        z cierpliwością i akceptacją przypadku.
+        Bo ebru to technika, która wymaga oddania kontroli —
+        i właśnie w tym tkwi jej magia.
+      </p>
+      <p>
+        To co trzymasz w rękach — jest zamrożonym momentem.
+        Jedynym. Twoim.
+      </p>
+      <div class="divider" style="margin-top:2.5rem"></div>
+      <a href="products.html" class="btn btn--outline" style="margin-top:2rem">
+        Zobacz Kolekcję
+      </a>
+    </div>
+  </div>
+
+  <!-- ============ FULL-WIDTH IMAGE ============ -->
+  <div style="height:55vh;overflow:hidden;position:relative">
+    <img
+      src="https://images.unsplash.com/photo-1578301978018-3005759f48f7?w=1800&q=85"
+      alt="Warsztat ebru"
+      style="width:100%;height:100%;object-fit:cover;
+             object-position:center 40%"
+    >
+    <div style="position:absolute;inset:0;
+                background:rgba(26,22,20,0.3)"></div>
+    <div style="position:absolute;bottom:3rem;left:4vw;color:var(--cream)">
+      <p style="font-family:var(--font-serif);font-size:clamp(1.2rem,2.5vw,1.8rem);
+                font-style:italic;color:rgba(245,240,232,0.8)">
+        „Każdy wzór to rozmowa między artystką a żywiołem."
+      </p>
+    </div>
+  </div>
+
+  <!-- ============ STORY TIMELINE ============ -->
+  <section class="story">
+    <div class="story__header" data-reveal>
+      <span class="section__label">Jak To Się Zaczęło</span>
+      <h2>Historia Pracowni</h2>
+      <div class="divider divider--center"></div>
+      <p>
+        Nie planowałam biznesu. Planowałam godzinę przy wodzie.
+        Potem kolejną. I kolejną.
+      </p>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline__item">
+        <div class="timeline__visual">
+          <img
+            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=75"
+            alt="Pierwsze próby ebru"
+          >
+          <span class="timeline__caption">Pierwsze próby · 2019</span>
+        </div>
+        <div class="timeline__dot"></div>
+        <div class="timeline__content" data-reveal>
+          <h3>Pierwsza Misa Wody</h3>
+          <p>
+            Warsztat weekendowy z tradycyjnego ebru.
+            Miałam wrócić do domu i zapomnieć.
+            Zamiast tego kupiłam pigmenty jeszcze tej samej nocy.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline__item">
+        <div class="timeline__content" data-reveal style="text-align:right">
+          <h3>Pierwsze Jedwabie</h3>
+          <p>
+            Po roku eksperymentów na papierze przeniosłam
+            technikę na jedwab. Pierwsza chusta rozpadła się
+            przy praniu. Druga wytrzymała. Trzecia wyszła piękna.
+          </p>
+        </div>
+        <div class="timeline__dot"></div>
+        <div class="timeline__visual" style="text-align:left;padding-left:3rem">
+          <img
+            src="https://images.unsplash.com/photo-1516762689617-e1cffcef479d?w=400&q=75"
+            alt="Pierwsze jedwabie"
+          >
+          <span class="timeline__caption">Jedwab · 2020</span>
+        </div>
+      </div>
+
+      <div class="timeline__item">
+        <div class="timeline__visual">
+          <img
+            src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&q=75"
+            alt="Pierwsza sprzedaż"
+          >
+          <span class="timeline__caption">Debiut · 2021</span>
+        </div>
+        <div class="timeline__dot"></div>
+        <div class="timeline__content" data-reveal>
+          <h3>Pierwsza Sprzedaż</h3>
+          <p>
+            Zdjęcie na Instagramie. Jedna wiadomość.
+            „Czy mogę ją kupić?" — i wszystko się zaczęło.
+            Tego dnia zrozumiałam, że nie tworzę tylko dla siebie.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline__item">
+        <div class="timeline__content" data-reveal style="text-align:right">
+          <h3>Studio i Teraz</h3>
+          <p>
+            Dziś mam własną pracownię, własne rytuały
+            i własnych klientów — ludzi którzy rozumieją,
+            że noszą coś więcej niż chustę.
+            Noszą chwilę, która już nigdy nie wróci.
+          </p>
+        </div>
+        <div class="timeline__dot"></div>
+        <div class="timeline__visual" style="text-align:left;padding-left:3rem">
+          <img
+            src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&q=75"
+            alt="Studio 2024"
+          >
+          <span class="timeline__caption">Pracownia · 2024</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ TECHNIKA ============ -->
+  <section class="technique">
+    <div class="technique__header" data-reveal>
+      <span class="section__label">Proces Tworzenia</span>
+      <h2>Jak Powstaje Chusta</h2>
+      <div class="divider divider--center"></div>
+      <p style="max-width:500px;margin:0 auto">
+        Cztery etapy, kilka godzin, zero poprawek.
+        Ebru nie wybacza pośpiechu.
+      </p>
+    </div>
+
+    <div class="technique__grid">
+      <div class="technique__step" data-reveal>
+        <div class="technique__step-num">01</div>
+        <img
+          class="technique__step-img"
+          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=70"
+          alt="Przygotowanie wody"
+        >
+        <h4>Woda</h4>
+        <p>
+          Specjalnie przygotowana ciecz — gęstsza niż zwykła woda.
+          Bez tego pigment by tonął, zamiast tańczyć.
+        </p>
+      </div>
+
+      <div class="technique__step" data-reveal data-reveal-delay="1">
+        <div class="technique__step-num">02</div>
+        <img
+          class="technique__step-img"
+          src="https://images.unsplash.com/photo-1578301978018-3005759f48f7?w=400&q=70"
+          alt="Pigmenty"
+        >
+        <h4>Pigment</h4>
+        <p>
+          Naturalne farby kapane na powierzchnię.
+          Kolor rozchodzi się jak oddech —
+          wolno, organicznie, nieprzewidywalnie.
+        </p>
+      </div>
+
+      <div class="technique__step" data-reveal data-reveal-delay="2">
+        <div class="technique__step-num">03</div>
+        <img
+          class="technique__step-img"
+          src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=70"
+          alt="Rysowanie wzoru"
+        >
+        <h4>Igła</h4>
+        <p>
+          Delikatne prowadzenie igłą przez ciekłe kolory.
+          Jeden ruch — jeden wzór. Nie można cofnąć.
+          Nie można powtórzyć.
+        </p>
+      </div>
+
+      <div class="technique__step" data-reveal data-reveal-delay="3">
+        <div class="technique__step-num">04</div>
+        <img
+          class="technique__step-img"
+          src="https://images.unsplash.com/photo-1516762689617-e1cffcef479d?w=400&q=70"
+          alt="Przeniesienie na jedwab"
+        >
+        <h4>Jedwab</h4>
+        <p>
+          Tkanina kładzie się na wodzie i przez kilka sekund
+          absoruje wzór. Gdy wychodzi — jest już gotowa.
+          Suszy się w ciszy.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PORTRAIT ============ -->
+  <section style="background:var(--ink);padding:8rem 4vw">
+    <div class="portrait" style="max-width:1100px;margin:0 auto">
+      <div class="portrait__img-frame" data-reveal>
+        <img
+          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=700&q=85"
+          alt="Artystka ebru studio"
+        >
+      </div>
+      <div class="portrait__text" data-reveal data-reveal-delay="2">
+        <span class="section__label">Artystka</span>
+        <h2>Za każdą chustą stoi człowiek.</h2>
+        <p>
+          Jestem Marta — artystka, perfekcjonistka
+          i wieczna uczennica wody. Ebru poznałam przez przypadek,
+          a ono zostało ze mną na zawsze.
+        </p>
+        <p>
+          Pracuję w ciszy, bez muzyki. Każda sesja przy misie
+          to rodzaj medytacji — skupienie, oddech, ruch.
+          Czasem wychodzi dokładnie to co chciałam.
+          Częściej — coś lepszego.
+        </p>
+        <p>
+          Wierzę, że przedmioty noszą energię momentu
+          w którym powstały. Dlatego każdą chustę
+          tworzę tylko wtedy, gdy jestem w dobrym miejscu.
+          Bo to zostaje w tkaninie.
+        </p>
+        <div class="portrait__signature">Marta</div>
+
+        <div style="margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap">
+          <a href="products.html" class="btn btn--outline"
+             style="border-color:rgba(184,150,90,0.5);color:var(--gold-light)">
+            Kolekcja
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener"
+             class="btn btn--outline"
+             style="border-color:rgba(245,240,232,0.2);color:rgba(245,240,232,0.5)">
+            Instagram
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VALUES ============ -->
+  <section class="section" style="max-width:1100px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:5rem" data-reveal>
+      <span class="section__label">Wartości</span>
+      <h2>W co wierzymy</h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);
+                gap:3rem;text-align:center">
+      <div data-reveal>
+        <div style="font-family:var(--font-serif);font-size:3rem;
+                    color:rgba(184,150,90,0.2);margin-bottom:0.5rem">I</div>
+        <h3 style="font-size:1.2rem;margin-bottom:1rem">Autentyczność</h3>
+        <p>
+          Żadnych filtrów. Żadnych wzmacniaczy.
+          To co widzisz — jest dokładnie tym,
+          co dostaniesz.
+        </p>
+      </div>
+      <div data-reveal data-reveal-delay="2">
+        <div style="font-family:var(--font-serif);font-size:3rem;
+                    color:rgba(184,150,90,0.2);margin-bottom:0.5rem">II</div>
+        <h3 style="font-size:1.2rem;margin-bottom:1rem">Wolność</h3>
+        <p>
+          Ebru uczy pokory wobec przypadku.
+          Kontroluję intencję, nie wynik.
+          To wolność, nie chaos.
+        </p>
+      </div>
+      <div data-reveal data-reveal-delay="4">
+        <div style="font-family:var(--font-serif);font-size:3rem;
+                    color:rgba(184,150,90,0.2);margin-bottom:0.5rem">III</div>
+        <h3 style="font-size:1.2rem;margin-bottom:1rem">Trwałość</h3>
+        <p>
+          Tworzę rzeczy, które przetrwają dekady.
+          Nie dla sezonu — dla życia.
+          Może i dla kolejnego pokolenia.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section style="background:var(--marble);padding:7rem 4vw;text-align:center">
+    <span class="section__label" data-reveal>Zaproszenie</span>
+    <h2 data-reveal style="max-width:600px;margin:0 auto 1.5rem">
+      Gotowa, żeby znaleźć swoją chustę?
+    </h2>
+    <p data-reveal data-reveal-delay="1"
+       style="max-width:450px;margin:0 auto 3rem;font-style:italic;
+              font-family:var(--font-serif);font-size:1.1rem">
+      Każda czeka tylko na jednego właściciela.
+    </p>
+    <a href="products.html" class="btn btn--dark" data-reveal data-reveal-delay="2">
+      Odkryj Kolekcję
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <div class="footer__brand-name">ebru<span>.</span></div>
+        <p>
+          Luksusowe chusty tworzone w technice ebru.
+          Każda jest jedyna. Każda nosi w sobie
+          moment swojego powstania.
+        </p>
+        <div class="footer__socials" style="margin-top:1.5rem">
+          <a href="https://instagram.com" target="_blank"
+             rel="noopener" class="social-icon" aria-label="Instagram">IG</a>
+          <a href="https://facebook.com" target="_blank"
+             rel="noopener" class="social-icon" aria-label="Facebook">FB</a>
+          <a href="https://pinterest.com" target="_blank"
+             rel="noopener" class="social-icon" aria-label="Pinterest">PT</a>
+          <a href="https://tiktok.com" target="_blank"
+             rel="noopener" class="social-icon" aria-label="TikTok">TK</a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>Nawigacja</h4>
+        <ul>
+          <li><a href="index.html">Strona Główna</a></li>
+          <li><a href="products.html">Kolekcja</a></li>
+          <li><a href="about.html">O Nas</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Informacje</h4>
+        <ul>
+          <li><a href="#">Dostawa i Zwroty</a></li>
+          <li><a href="#">Pielęgnacja Jedwabiu</a></li>
+          <li><a href="#">Certyfikat Autentyczności</a></li>
+          <li><a href="#">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2025 Ebru Studio. Wszelkie prawa zastrzeżone.</p>
+      <p style="font-style:italic;font-family:var(--font-serif);
+                color:rgba(245,240,232,0.2);font-size:0.85rem">
+        Każda chusta to osobny wszechświat.
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
