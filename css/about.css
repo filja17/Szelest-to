@@ -1,52 +1,106 @@
 /* ============================================
-   ABOUT PAGE
+   ABOUT INTRO
 ============================================ */
 .about-intro {
-  padding: 12rem 4vw 8rem;
-  max-width: 1200px;
+  padding: 14rem 6vw 8rem;
+  max-width: 1300px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8rem;
   align-items: center;
+  background: #0e0c0a;
 }
 
 .about-intro__tagline {
-  font-family: var(--font-serif);
-  font-size: clamp(2.2rem, 4vw, 3.8rem);
-  line-height: 1.2;
-  color: var(--ink);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 4.5vw, 4rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: rgba(245, 240, 232, 0.85);
 }
 
 .about-intro__tagline em {
-  color: var(--gold);
   font-style: italic;
+  color: rgba(201, 169, 110, 0.8);
   display: block;
 }
 
 .about-intro__text p {
-  font-size: 1rem;
-  line-height: 2;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.95rem;
+  line-height: 2.1;
   margin-bottom: 1.5rem;
-  color: var(--text-muted);
+  color: rgba(245, 240, 232, 0.38);
+  font-weight: 300;
 }
 
 /* ============================================
-   STORY TIMELINE
+   FULL-WIDTH DIVIDER IMAGE
+============================================ */
+.about-img-full {
+  width: 100%;
+  height: 55vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.about-img-full img {
+  width: 100%;
+  height: 115%;
+  object-fit: cover;
+  object-position: center 40%;
+  filter: brightness(0.6) saturate(0.65);
+  transform: translateY(0);
+  transition: transform 0.1s linear;
+}
+
+.about-img-full__caption {
+  position: absolute;
+  bottom: 3rem;
+  left: 6vw;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  color: rgba(245, 240, 232, 0.55);
+  font-weight: 300;
+}
+
+/* ============================================
+   STORY SECTION
 ============================================ */
 .story {
-  padding: 8rem 4vw;
-  background: var(--marble);
+  padding: 8rem 6vw;
+  background: #0b0907;
+  border-top: 1px solid rgba(201, 169, 110, 0.06);
+  border-bottom: 1px solid rgba(201, 169, 110, 0.06);
 }
 
 .story__header {
   text-align: center;
-  max-width: 600px;
-  margin: 0 auto 6rem;
+  max-width: 580px;
+  margin: 0 auto 7rem;
 }
 
+.story__header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  color: rgba(245, 240, 232, 0.8);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  margin-bottom: 1.5rem;
+}
+
+.story__header p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: rgba(245, 240, 232, 0.28);
+  line-height: 1.8;
+}
+
+/* Timeline */
 .timeline {
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
   position: relative;
 }
@@ -58,36 +112,28 @@
   top: 0;
   bottom: 0;
   width: 1px;
-  background: linear-gradient(to bottom, transparent, var(--gold) 10%, var(--gold) 90%, transparent);
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(201, 169, 110, 0.2) 10%,
+    rgba(201, 169, 110, 0.2) 90%,
+    transparent
+  );
   transform: translateX(-50%);
 }
 
 .timeline__item {
   display: grid;
-  grid-template-columns: 1fr 60px 1fr;
+  grid-template-columns: 1fr 80px 1fr;
   gap: 0;
-  margin-bottom: 5rem;
+  margin-bottom: 6rem;
   align-items: center;
 }
 
-.timeline__item:nth-child(even) .timeline__content {
-  grid-column: 3;
-  grid-row: 1;
-  text-align: left;
-  padding-left: 3rem;
-}
-
-.timeline__item:nth-child(even) .timeline__visual {
-  grid-column: 1;
-  grid-row: 1;
-  text-align: right;
-  padding-right: 3rem;
-}
-
 .timeline__dot {
-  width: 12px;
-  height: 12px;
-  background: var(--gold);
+  width: 10px;
+  height: 10px;
+  background: rgba(201, 169, 110, 0.6);
   border-radius: 50%;
   margin: 0 auto;
   position: relative;
@@ -97,56 +143,98 @@
 .timeline__dot::before {
   content: '';
   position: absolute;
-  inset: -4px;
-  border: 1px solid rgba(184, 150, 90, 0.4);
+  inset: -5px;
+  border: 1px solid rgba(201, 169, 110, 0.2);
   border-radius: 50%;
 }
 
 .timeline__content {
-  padding-right: 3rem;
+  padding-right: 3.5rem;
 }
 
 .timeline__content h3 {
-  font-family: var(--font-serif);
-  font-size: 1.4rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: rgba(245, 240, 232, 0.8);
   margin-bottom: 0.8rem;
-  color: var(--ink);
 }
 
 .timeline__content p {
-  font-size: 0.9rem;
-  line-height: 1.9;
-  color: var(--text-muted);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.88rem;
+  line-height: 2;
+  color: rgba(245, 240, 232, 0.32);
+  font-weight: 300;
+}
+
+.timeline__item:nth-child(even) .timeline__content {
+  grid-column: 3;
+  grid-row: 1;
+  padding-right: 0;
+  padding-left: 3.5rem;
+}
+
+.timeline__item:nth-child(even) .timeline__visual {
+  grid-column: 1;
+  grid-row: 1;
+  text-align: right;
+  padding-right: 3.5rem;
 }
 
 .timeline__visual img {
-  width: 100%;
-  max-width: 300px;
-  height: 200px;
+  max-width: 280px;
+  height: 185px;
   object-fit: cover;
+  filter: brightness(0.7) saturate(0.65);
+  transition: filter 0.5s;
 }
 
-.timeline__visual .timeline__caption {
-  font-size: 0.72rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-top: 0.8rem;
+.timeline__item:hover .timeline__visual img {
+  filter: brightness(0.88) saturate(0.85);
+}
+
+.timeline__caption {
   display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(201, 169, 110, 0.4);
+  margin-top: 0.8rem;
 }
 
 /* ============================================
-   TECHNIQUE SECTION
+   TECHNIQUE
 ============================================ */
 .technique {
-  padding: 8rem 4vw;
+  padding: 8rem 6vw;
+  background: #0e0c0a;
   max-width: 1300px;
   margin: 0 auto;
 }
 
 .technique__header {
   text-align: center;
-  margin-bottom: 5rem;
+  margin-bottom: 6rem;
+}
+
+.technique__header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  color: rgba(245, 240, 232, 0.8);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  margin-bottom: 1.5rem;
+}
+
+.technique__header p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(245, 240, 232, 0.25);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.8;
 }
 
 .technique__grid {
@@ -157,125 +245,264 @@
 
 .technique__step {
   text-align: center;
-  position: relative;
 }
 
 .technique__step-num {
-  font-family: var(--font-serif);
-  font-size: 4rem;
-  color: rgba(184, 150, 90, 0.12);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 5rem;
   line-height: 1;
-  margin-bottom: 0.5rem;
+  color: rgba(201, 169, 110, 0.05);
+  margin-bottom: 0.3rem;
+  font-weight: 300;
 }
 
 .technique__step-img {
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
-  margin-bottom: 1.5rem;
-  filter: grayscale(20%);
-  transition: filter 0.4s;
+  margin-bottom: 1.8rem;
+  filter: brightness(0.65) saturate(0.5) grayscale(20%);
+  transition: filter 0.6s ease;
 }
 
 .technique__step:hover .technique__step-img {
-  filter: grayscale(0%);
+  filter: brightness(0.85) saturate(0.9) grayscale(0%);
 }
 
 .technique__step h4 {
-  font-family: var(--font-serif);
-  font-size: 1.1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 300;
+  color: rgba(245, 240, 232, 0.7);
   margin-bottom: 0.8rem;
-  color: var(--ink);
 }
 
 .technique__step p {
-  font-size: 0.85rem;
-  line-height: 1.8;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.9;
+  color: rgba(245, 240, 232, 0.28);
+  font-weight: 300;
 }
 
 /* ============================================
-   PORTRAIT SECTION
+   PORTRAIT
 ============================================ */
-.portrait {
-  padding: 8rem 4vw;
-  background: var(--ink);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6rem;
-  max-width: 1300px;
+.portrait-section {
+  background: #080604;
+  padding: 8rem 6vw;
+  border-top: 1px solid rgba(201, 169, 110, 0.06);
+}
+
+.portrait-inner {
+  max-width: 1100px;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 7rem;
   align-items: center;
 }
 
-.portrait__img-frame {
+.portrait__img-wrap {
   position: relative;
 }
 
-.portrait__img-frame img {
+.portrait__img-wrap img {
   width: 100%;
-  aspect-ratio: 3/4;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
-  object-position: top;
+  object-position: top center;
+  filter: brightness(0.8) saturate(0.6);
+  display: block;
 }
 
-.portrait__img-frame::after {
+.portrait__img-wrap::after {
   content: '';
   position: absolute;
-  bottom: -20px;
-  right: -20px;
-  width: 70%;
-  height: 70%;
-  border: 1px solid rgba(184, 150, 90, 0.3);
+  bottom: -18px;
+  right: -18px;
+  width: 65%;
+  height: 65%;
+  border: 1px solid rgba(201, 169, 110, 0.15);
   pointer-events: none;
 }
 
 .portrait__text .section__label {
-  color: rgba(184, 150, 90, 0.7);
-}
-
-.portrait__text h2 {
-  color: var(--cream);
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
-  margin-bottom: 2rem;
-}
-
-.portrait__text p {
-  color: rgba(245, 240, 232, 0.55);
-  line-height: 2;
+  color: rgba(201, 169, 110, 0.5) !important;
   margin-bottom: 1.5rem;
 }
 
+.portrait__text h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  color: rgba(245, 240, 232, 0.82);
+  margin-bottom: 2rem;
+  line-height: 1.25;
+}
+
+.portrait__text p {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.9rem;
+  line-height: 2.1;
+  color: rgba(245, 240, 232, 0.32);
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
 .portrait__signature {
-  font-family: var(--font-serif);
-  font-size: 1.8rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
   font-style: italic;
-  color: var(--gold-light);
-  margin-top: 2rem;
+  color: rgba(201, 169, 110, 0.5);
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  display: block;
 }
 
 /* ============================================
-   ABOUT RESPONSIVE
+   VALUES
 ============================================ */
+.values-section {
+  padding: 8rem 6vw;
+  background: #0e0c0a;
+}
+
+.values-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.values-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.values-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  color: rgba(245, 240, 232, 0.78);
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem;
+  text-align: center;
+}
+
+.values-item__num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4.5rem;
+  font-weight: 300;
+  color: rgba(201, 169, 110, 0.06);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.values-item h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: rgba(245, 240, 232, 0.7);
+  margin-bottom: 1rem;
+}
+
+.values-item p {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.95;
+  color: rgba(245, 240, 232, 0.28);
+  font-weight: 300;
+}
+
+.values-divider {
+  width: 28px;
+  height: 1px;
+  background: rgba(201, 169, 110, 0.2);
+  margin: 1.2rem auto;
+}
+
+/* ============================================
+   CTA ABOUT
+============================================ */
+.about-cta {
+  background: #0b0907;
+  padding: 7rem 6vw;
+  text-align: center;
+  border-top: 1px solid rgba(201, 169, 110, 0.06);
+}
+
+.about-cta h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  color: rgba(245, 240, 232, 0.78);
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.2;
+}
+
+.about-cta h2 em {
+  font-style: italic;
+  color: rgba(201, 169, 110, 0.75);
+}
+
+.about-cta p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: rgba(245, 240, 232, 0.22);
+  max-width: 380px;
+  margin: 0 auto 3rem;
+  line-height: 1.8;
+}
+
+/* ============================================
+   RESPONSIVE ABOUT
+============================================ */
+@media (max-width: 1024px) {
+  .technique__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+}
+
 @media (max-width: 900px) {
   .about-intro {
     grid-template-columns: 1fr;
     gap: 3rem;
-    padding: 10rem 4vw 5rem;
+    padding: 11rem 6vw 5rem;
+  }
+
+  .portrait-inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .portrait__img-wrap::after { display: none; }
+
+  .values-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
 
   .timeline::before { display: none; }
 
   .timeline__item {
     grid-template-columns: 1fr;
-    text-align: left;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
   }
+
+  .timeline__dot { display: none; }
 
   .timeline__item:nth-child(even) .timeline__content,
   .timeline__item:nth-child(odd) .timeline__content {
     grid-column: 1;
     grid-row: 2;
     padding: 0;
-    text-align: left;
   }
 
   .timeline__item:nth-child(even) .timeline__visual,
@@ -286,15 +513,9 @@
     text-align: left;
   }
 
-  .timeline__dot { display: none; }
-
-  .technique__grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .portrait {
-    grid-template-columns: 1fr;
-    gap: 3rem;
+  .timeline__visual img {
+    max-width: 100%;
+    height: 45vw;
   }
 }
 
