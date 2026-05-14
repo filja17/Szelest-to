@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>∿</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=VT323&family=Libre+Baskerville:ital@1&display=swap');
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --ink: #07070c;
+  --paper: #ede8df;
+  --gold: #c8a040;
+  --rust: #9b3d2b;
+  --sage: #4a6040;
+}
+
+html { scroll-behavior: auto; }
+
+body {
+  background: var(--ink);
+  color: var(--paper);
+  overflow-x: hidden;
+  cursor: crosshair;
+  font-family: 'IM Fell English', serif;
+}
+
+/* ── STAR CANVAS ── */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.8rem 3rem;
+}
+.nav-mark {
+  font-family: 'VT323', monospace;
+  font-size: 1.6rem;
+  color: rgba(237,232,223,0.7);
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  transition: color 0.3s;
+}
+.nav-mark:hover { color: var(--paper); }
+.nav-links { display:flex; gap:2.5rem; list-style:none; }
+.nav-links a {
+  font-family: 'VT323', monospace;
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  color: rgba(237,232,223,0.4);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--paper); }
+
+/* ── SCROLL SCENE ── */
+#scene {
+  position: relative;
+}
+
+/* ── STICKY FRAME ── */
+#viewport {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* ── WORLD ── */
+#world {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  will-change: transform;
+}
+
+/* ── BASE ELEMENT ── */
+.el {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform, opacity;
+  user-select: none;
+  opacity: 0;
+}
+
+/* ── TEXT TYPES ── */
+.t-massive {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(4.5rem, 13vw, 15rem);
+  line-height: 0.88;
+  white-space: nowrap;
+}
+.t-large {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(2rem, 5vw, 5.5rem);
+  line-height: 0.95;
+}
+.t-body {
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  font-size: clamp(0.85rem, 1.4vw, 1.2rem);
+  line-height: 1.65;
+  max-width: 320px;
+}
+.t-mono {
+  font-family: 'VT323', monospace;
+  font-size: clamp(0.65rem, 1.1vw, 0.9rem);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+/* ── COVER ── */
+.cover {
+  overflow: hidden;
+  border: 1px solid rgba(237,232,223,0.12);
+}
+.cover svg { display:block; width:100%; height:100%; }
+
+/* ── PHOTO ── */
+.photo {
+  overflow: hidden;
+  border: 1px solid rgba(237,232,223,0.07);
+  filter: grayscale(0.35) contrast(1.08) brightness(0.92);
+}
+.photo svg { display:block; width:100%; height:100%; }
+
+/* ── SHAPES ── */
+.line {
+  background: rgba(237,232,223,0.18);
+  transform-origin: left center;
+}
+.dot { border-radius: 50%; }
+.ring {
+  border-radius: 50%;
+  border: 1px solid rgba(237,232,223,0.1);
+  background: transparent;
+}
+
+/* ── SUBPAGES OVERLAY ── */
+#subpages {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--ink);
+  z-index: 2000;
+  overflow-y: auto;
+}
+#subpages.open { display: block; }
+.sp-close {
+  position: fixed;
+  top: 1.8rem; right: 3rem;
+  font-family: 'VT323', monospace;
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  color: rgba(237,232,223,0.4);
+  cursor: pointer;
+  z-index: 2001;
+  transition: color 0.3s;
+}
+.sp-close:hover { color: var(--paper); }
+
+.sp-inner {
+  min-height: 100vh;
+  padding: 7rem 5vw 6rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.sp-h {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(3rem, 8vw, 9rem);
+  line-height: 0.88;
+  color: var(--paper);
+  margin-bottom: 4rem;
+}
+
+/* projects */
+.pj-list { border-top: 1px solid rgba(237,232,223,0.08); }
+.pj-row {
+  display: flex; align-items: baseline; gap: 2rem;
+  padding: 1.8rem 0;
+  border-bottom: 1px solid rgba(237,232,223,0.06);
+  cursor: pointer;
+  transition: padding-left 0.4s cubic-bezier(.23,1,.32,1);
+}
+.pj-row:hover { padding-left: 1.5rem; }
+.pj-n { font-family:'VT323',monospace; font-size:0.8rem; color:rgba(237,232,223,0.25); min-width:3rem; }
+.pj-name { font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(1.6rem,3.5vw,3.2rem); flex:1; }
+.pj-sub { font-family:'VT323',monospace; font-size:0.75rem; letter-spacing:0.12em; color:var(--gold); text-transform:uppercase; }
+
+/* products */
+.pr-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:2.5rem; }
+.pr-card { cursor:pointer; }
+.pr-art { aspect-ratio:1; border:1px solid rgba(237,232,223,0.07); overflow:hidden; margin-bottom:1rem; transition:border-color 0.3s; }
+.pr-card:hover .pr-art { border-color:rgba(200,160,64,0.3); }
+.pr-art svg { display:block; width:100%; height:100%; }
+.pr-title { font-family:'IM Fell English',serif; font-style:italic; font-size:1.2rem; margin-bottom:0.3rem; }
+.pr-fmt { font-family:'VT323',monospace; font-size:0.72rem; letter-spacing:0.15em; color:rgba(237,232,223,0.3); text-transform:uppercase; }
+.pr-price { font-family:'VT323',monospace; font-size:1rem; color:var(--gold); margin-top:0.4rem; }
+
+/* about */
+.ab-grid { display:grid; grid-template-columns:1fr 1.7fr; gap:5rem; align-items:start; }
+.ab-portrait { aspect-ratio:3/4; background:linear-gradient(145deg,#180d10,#0a0f18); border:1px solid rgba(237,232,223,0.07); display:flex; align-items:center; justify-content:center; font-family:'VT323',monospace; font-size:0.7rem; letter-spacing:0.2em; color:rgba(237,232,223,0.18); }
+.ab-text p { font-family:'Libre Baskerville',serif; font-style:italic; font-size:1rem; line-height:1.9; color:rgba(237,232,223,0.6); margin-bottom:1.4rem; }
+
+/* gallery */
+.gl-cols { columns:3; column-gap:2px; }
+.gl-item { break-inside:avoid; margin-bottom:2px; overflow:hidden; cursor:pointer; }
+.gl-in { transition:transform 0.6s cubic-bezier(.23,1,.32,1); }
+.gl-item:hover .gl-in { transform:scale(1.04); }
+.gl-in svg { display:block; width:100%; }
+
+/* contact */
+.ct-body { max-width:580px; }
+.ct-intro { font-family:'Libre Baskerville',serif; font-style:italic; font-size:1.05rem; line-height:1.85; color:rgba(237,232,223,0.5); margin-bottom:3rem; }
+.ct-row { display:flex; gap:2rem; align-items:baseline; padding:1.2rem 0; border-bottom:1px solid rgba(237,232,223,0.06); cursor:pointer; transition:gap 0.4s cubic-bezier(.23,1,.32,1); text-decoration:none; color:inherit; }
+.ct-row:hover { gap:3rem; }
+.ct-lbl { font-family:'VT323',monospace; font-size:0.72rem; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase; min-width:80px; }
+.ct-val { font-family:'IM Fell English',serif; font-style:italic; font-size:1.05rem; color:rgba(237,232,223,0.65); }
+
+@media(max-width:768px){
+  nav{padding:1.4rem 1.5rem;}
+  .nav-links{gap:1.2rem;}
+  .gl-cols{columns:2;}
+  .ab-grid{grid-template-columns:1fr;gap:3rem;}
+}
+@media(max-width:480px){
+  .nav-links{display:none;}
+  .gl-cols{columns:1;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<nav>
+  <a class="nav-mark" onclick="closeSub()">∿</a>
+  <ul class="nav-links">
+    <li><a onclick="openSub('projects')">Projekty</a></li>
+    <li><a onclick="openSub('products')">Produkty</a></li>
+    <li><a onclick="openSub('about')">O mnie</a></li>
+    <li><a onclick="openSub('gallery')">Galeria</a></li>
+    <li><a onclick="openSub('contact')">Kontakt</a></li>
+  </ul>
+</nav>
+
+<div id="scene">
+  <div id="viewport">
+    <div id="world"></div>
+  </div>
+</div>
+
+<div id="subpages">
+  <span class="sp-close" onclick="closeSub()">✕ zamknij</span>
+  <div class="sp-inner" id="sp-content"></div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════
+   UTILITIES
+═══════════════════════════════════════════ */
+const rnd  = (a,b) => a + Math.random()*(b-a);
+const pick = arr  => arr[Math.floor(Math.random()*arr.length)];
+const clamp= (v,a,b) => Math.max(a,Math.min(b,v));
+
+let VW = window.innerWidth;
+let VH = window.innerHeight;
+window.addEventListener('resize', () => { VW = window.innerWidth; VH = window.innerHeight; });
+
+/* ═══════════════════════════════════════════
+   STARFIELD
+═══════════════════════════════════════════ */
+(function(){
+  const c   = document.getElementById('bg-canvas');
+  const ctx = c.getContext('2d');
+  let W, H;
+  const resize = () => { W = c.width = window.innerWidth; H = c.height = window.innerHeight; };
+  resize(); window.addEventListener('resize', resize);
+
+  const stars = Array.from({length:220},()=>({
+    x: Math.random(), y: Math.random(),
+    r: Math.random()*1.3 + 0.2,
+    a: Math.random()*0.45 + 0.04,
+    ph: Math.random()*Math.PI*2,
+    spd: Math.random()*0.0008+0.0002,
+  }));
+
+  let t = 0;
+  (function draw(){
+    ctx.clearRect(0,0,W,H);
+    stars.forEach(s=>{
+      const a = s.a*(0.6+0.4*Math.sin(t*s.spd*60+s.ph));
+      ctx.beginPath();
+      ctx.arc(s.x*W, s.y*H, s.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(237,232,223,${a})`;
+      ctx.fill();
+    });
+    t++; requestAnimationFrame(draw);
+  })();
+})();
+
+/* ═══════════════════════════════════════════
+   ALBUM DATA
+═══════════════════════════════════════════ */
+const albums = [
+  { title:'Puste Niebo',          year:'2019', tags:['drone','field recording','ambient'],
+    desc:'Zapis ciszy przed burzą.',  color:'#c8a040', bg1:'#0d0d20', bg2:'#1a0e2e' },
+  { title:'Szlest',               year:'2019', tags:['urban','noise','experimental'],
+    desc:'Miejska noc — szelest liści, oddech wentylacji.',  color:'#9b3d2b', bg1:'#1a0e08', bg2:'#2a1408' },
+  { title:'Nota contra Notam',    year:'2020', tags:['counterpoint','minimalism','structure'],
+    desc:'Dwa głosy prowadzone niezależnie.', color:'#5a8a3a', bg1:'#0a1408', bg2:'#0d1e0a' },
+  { title:'Among Other Sounds',   year:'2021', tags:['collaborative','improvisation','global'],
+    desc:'Muzyka jako dialog ponad granicami.', color:'#8a3a9a', bg1:'#120810', bg2:'#1e0e18' },
+  { title:'Drumless Blond Heads', year:'2021', tags:['beatless','texture','drift'],
+    desc:'Kiedy zniknie rytm — zostaje czas.', color:'#3a8aaa', bg1:'#080d14', bg2:'#0e1520' },
+  { title:'Fioletowe Trójkąty',   year:'2022', tags:['spatial audio','electronic','geometry'],
+    desc:'Dźwięk ma kształt — tylko wzrok nam to ukrywa.', color:'#aa3aaa', bg1:'#100810', bg2:'#1a0e1a' },
+  { title:'Zielone Fale',         year:'2022', tags:['memory','synthesis','personal'],
+    desc:'Pamięć zakodowana w fali dźwiękowej.', color:'#3aaa5a', bg1:'#081008', bg2:'#0d1a0e' },
+  { title:'Czerwone Południe',    year:'2023', tags:['heat','drone','mediterranean'],
+    desc:'Upał jako dźwięk, cisza sjesty jako struktura.',  color:'#cc3030', bg1:'#150808', bg2:'#200e0a' },
+  { title:'Granica Słyszalności', year:'2023', tags:['infrasound','perception','limit'],
+    desc:'Co kryje się poza granicami zmysłów?', color:'#4a5aaa', bg1:'#080a14', bg2:'#0e1022' },
+  { title:'Punkt Zerowy',         year:'2024', tags:['retrospective','silence','return'],
+    desc:'Każda podróż, która ma sens, wraca tam skąd wyruszyła.', color:'#c8a040', bg1:'#100e08', bg2:'#1a1810' },
+];
+
+/* ═══════════════════════════════════════════
+   SVG GENERATORS
+═══════════════════════════════════════════ */
+function coverSVG(a, seed) {
+  const {color:ac, bg1:c1, bg2:c2} = a;
+  const designs = [
+    // concentric rings
+    `<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+      <defs><radialGradient id="g${seed}"><stop offset="0%" stop-color="${c2}"/><stop offset="100%" stop-color="${c1}"/></radialGradient></defs>
+      <rect width="300" height="300" fill="url(#g${seed})"/>
+      ${[130,100,72,48,28,12].map((r,i)=>`<circle cx="150" cy="150" r="${r}" fill="none" stroke="${ac}" stroke-width="0.7" opacity="${0.07+i*0.05}"/>`).join('')}
+      <circle cx="150" cy="150" r="4" fill="${ac}" opacity="0.7"/>
+    </svg>`,
+    // wave interference
+    `<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="g${seed}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${c1}"/><stop offset="100%" stop-color="${c2}"/></linearGradient></defs>
+      <rect width="300" height="300" fill="url(#g${seed})"/>
+      ${Array.from({length:14},(_,i)=>{
+        const y=80+i*12; const a=10+i*3;
+        return `<path d="M0,${y} Q75,${y-a} 150,${y} T300,${y}" fill="none" stroke="${ac}" stroke-width="0.8" opacity="${0.04+i*0.018}"/>`;
+      }).join('')}
+    </svg>`,
+    // diagonal cuts
+    `<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="300" fill="${c1}"/>
+      ${Array.from({length:9},(_,i)=>`<line x1="${i*40}" y1="0" x2="${i*40+240}" y2="300" stroke="${ac}" stroke-width="0.6" opacity="${0.06+i*0.02}"/>`).join('')}
+      ${Array.from({length:5},(_,i)=>`<line x1="${i*80}" y1="300" x2="${i*80+200}" y2="0" stroke="${ac}" stroke-width="0.4" opacity="0.04"/>`).join('')}
+      <rect x="100" y="100" width="100" height="100" fill="none" stroke="${ac}" stroke-width="0.8" opacity="0.25"/>
+    </svg>`,
+    // scatter field
+    `<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="300" fill="${c1}"/>
+      ${Array.from({length:50},(_,i)=>{
+        const x=rnd(10,290), y=rnd(10,290), r=rnd(0.8,5);
+        return `<circle cx="${x}" cy="${y}" r="${r}" fill="${ac}" opacity="${rnd(0.04,0.3)}"/>`;
+      }).join('')}
+      <circle cx="150" cy="150" r="55" fill="none" stroke="${ac}" stroke-width="0.5" opacity="0.18"/>
+    </svg>`,
+    // triangle nested
+    `<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="300" fill="${c1}"/>
+      ${[['150,45 260,235 40,235'],['150,75 240,220 60,220'],['150,105 220,205 80,205'],['150,130 200,190 100,190']].map((p,i)=>`<polygon points="${p}" fill="none" stroke="${ac}" stroke-width="${0.9-i*0.2}" opacity="${0.25-i*0.05}"/>`).join('')}
+    </svg>`,
+  ];
+  return designs[seed % designs.length];
+}
+
+function photoSVG(seed) {
+  const palettes = [['#0d1520','#1a2535'],['#150d08','#2a1a10'],['#08100a','#10180e'],['#12080e','#201018'],['#0a0c14','#101422']];
+  const [c1,c2] = palettes[seed%palettes.length];
+  const types = [
+    `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="ph${seed}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${c1}"/><stop offset="100%" stop-color="${c2}"/></linearGradient></defs>
+      <rect width="400" height="280" fill="url(#ph${seed})"/>
+      <ellipse cx="${140+seed*15}" cy="160" rx="${70+seed*8}" ry="${50+seed*5}" fill="none" stroke="rgba(237,232,223,0.06)" stroke-width="35"/>
+      <rect x="0" y="220" width="400" height="60" fill="rgba(0,0,0,0.45)"/>
+      <line x1="0" y1="140" x2="400" y2="140" stroke="rgba(237,232,223,0.04)" stroke-width="0.5"/>
+    </svg>`,
+    `<svg viewBox="0 0 280 380" xmlns="http://www.w3.org/2000/svg">
+      <rect width="280" height="380" fill="${c1}"/>
+      ${Array.from({length:7},(_,i)=>`<rect x="0" y="${i*56}" width="280" height="28" fill="rgba(237,232,223,${0.012+i*0.004})"/>`).join('')}
+      <rect x="60" y="80" width="160" height="220" fill="rgba(237,232,223,0.04)" stroke="rgba(237,232,223,0.07)" stroke-width="0.5"/>
+    </svg>`,
+    `<svg viewBox="0 0 460 320" xmlns="http://www.w3.org/2000/svg">
+      <rect width="460" height="320" fill="${c2}"/>
+      <path d="M0,200 Q115,120 230,200 T460,200 L460,320 L0,320Z" fill="rgba(0,0,0,0.4)"/>
+      <circle cx="230" cy="130" r="75" fill="none" stroke="rgba(237,232,223,0.06)" stroke-width="1"/>
+      <line x1="0" y1="160" x2="460" y2="160" stroke="rgba(237,232,223,0.04)" stroke-width="0.5"/>
+    </svg>`,
+    `<svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+      <rect width="320" height="320" fill="${c1}"/>
+      ${Array.from({length:5},(_,i)=>{
+        const r=30+i*35;
+        return `<circle cx="160" cy="160" r="${r}" fill="none" stroke="rgba(237,232,223,${0.04+i*0.015})" stroke-width="0.6"/>`;
+      }).join('')}
+      <rect x="100" y="100" width="120" height="120" fill="rgba(237,232,223,0.03)" stroke="rgba(237,232,223,0.06)" stroke-width="0.5"/>
+    </svg>`,
+  ];
+  return types[seed%types.length];
+}
+
+/* ═══════════════════════════════════════════
+   WORLD BUILDER
+═══════════════════════════════════════════ */
+const world = document.getElementById('world');
+const scene = document.getElementById('scene');
+
+// Total world height = 28× VH
+const N_ALBUMS = albums.length;
+const BAND = 2.8; // viewport-heights per album band
+const WORLD_VH = N_ALBUMS * BAND + 2; // extra at start+end
+const WORLD_PX = () => WORLD_VH * VH;
+const SCROLL_PX = () => WORLD_PX() - VH;
+
+// Set scene height
+function setSceneHeight() {
+  scene.style.height = (WORLD_PX() + VH) + 'px';
+}
+setSceneHeight();
+window.addEventListener('resize', setSceneHeight);
+
+// Element registry
+const elems = []; // { node, worldY, parallax, baseOp, driftAmpX, driftAmpY, driftPhase, driftSpeed, rot }
+
+function addNode(node, worldY, opts={}) {
+  const {
+    parallax = 1,
+    baseOp   = 0.5,
+    rot      = 0,
+    driftAmpX = rnd(3,9),
+    driftAmpY = rnd(2,6),
+  } = opts;
+  node.style.position = 'absolute';
+  node.style.top = worldY + 'px';
+  node.style.opacity = 0;
+  world.appendChild(node);
+  elems.push({
+    node, worldY,
+    parallax, baseOp, rot,
+    driftAmpX, driftAmpY,
+    driftPhase: Math.random()*Math.PI*2,
+    driftSpeed: rnd(0.0004, 0.001),
+  });
+  return node;
+}
+
+function mkEl(tag, cls) {
+  const el = document.createElement(tag);
+  if (cls) cls.split(' ').forEach(c => c && el.classList.add(c));
+  return el;
+}
+
+function txt(cls, content, color) {
+  const el = mkEl('div', 'el '+cls);
+  el.textContent = content;
+  if (color) el.style.color = color;
+  return el;
+}
+
+/* ── AMBIENT WORDS scattered globally ── */
+const ghostWords = [
+  'silence','echo','pulse','void','drift','breath','static','grain',
+  'cisza','oddech','szum','mgła','fala','puls','pustka','czas',
+  'resonance','dissolve','membrane','threshold','∿','◦','—','·',
+  'nagrania terenowe','field recording','ambient','experimental',
+];
+for (let i=0; i<70; i++) {
+  const yFrac = rnd(0.005, 0.995);
+  const node = txt('el t-mono', pick(ghostWords), 'rgba(237,232,223,0.08)');
+  node.style.left = rnd(2, 88)+'vw';
+  addNode(node, yFrac * WORLD_PX(), {
+    parallax: rnd(0.55, 1.3),
+    baseOp: rnd(0.04, 0.13),
+    rot: rnd(-30, 30),
+  });
+}
+
+/* ── INTER-ALBUM FLOATING QUOTES ── */
+const floats = [
+  { t:'large', text:'każdy dźwięk jest śladem' },
+  { t:'body',  text:'the space between notes is where music lives' },
+  { t:'large', text:'co zostaje po ciszy' },
+  { t:'mono',  text:'field recording 2019–2024' },
+  { t:'body',  text:'ambient music is not background music — it is foreground of the mind' },
+  { t:'large', text:'muzyka bez początku' },
+  { t:'mono',  text:'experimental — adj. — not yet resolved' },
+  { t:'body',  text:'fotografia jako forma słuchania przestrzeni' },
+  { t:'large', text:'dźwięk / obraz / czas' },
+  { t:'body',  text:'każde miejsce ma swój własny głos, wystarczy go posłuchać' },
+  { t:'mono',  text:'ten projekt trwa nadal' },
+  { t:'large', text:'a journey through sound' },
+];
+floats.forEach((f,fi) => {
+  const yFrac = (fi+0.5)/floats.length;
+  const clsMap = {large:'t-large', body:'t-body', mono:'t-mono'};
+  const col = pick(['rgba(237,232,223,0.75)','rgba(200,160,64,0.7)','rgba(237,232,223,0.45)']);
+  const node = txt('el '+clsMap[f.t], f.text, col);
+  node.style.left = rnd(3, 52)+'vw';
+  addNode(node, yFrac * WORLD_PX() + rnd(-VH*0.4, VH*0.4), {
+    parallax: rnd(0.7, 1.05),
+    baseOp: f.t==='large' ? rnd(0.35,0.7) : rnd(0.4,0.75),
+    rot: rnd(-5, 5),
+  });
+});
+
+/* ── PER-ALBUM CLUSTERS ── */
+albums.forEach((album, ai) => {
+  const bandStart = (1 + ai * BAND) * VH;
+  const bandMid   = bandStart + BAND * VH * 0.5;
+
+  // ── MASSIVE TITLE
+  const titleNode = txt('el t-massive', album.title, album.color);
+  titleNode.style.left = rnd(-VW*0.06, VW*0.05) + 'px';
+  titleNode.style.whiteSpace = 'nowrap';
+  addNode(titleNode, bandMid - VH*0.55, {
+    parallax: rnd(0.82, 0.9),
+    baseOp: 0.88,
+    rot: rnd(-5, 5),
+    driftAmpX: rnd(6,14),
+  });
+
+  // ── YEAR
+  const yearNode = txt('el t-mono', album.year, 'rgba(237,232,223,0.35)');
+  yearNode.style.left = rnd(VW*0.1, VW*0.7) + 'px';
+  addNode(yearNode, bandMid - VH*0.38 + rnd(-30,30), {
+    parallax: rnd(1.05, 1.18),
+    baseOp: 0.5,
+    rot: rnd(-2,2),
+  });
+
+  // ── DESCRIPTION
+  const descNode = txt('el t-body', album.desc, 'rgba(237,232,223,0.65)');
+  descNode.style.left = rnd(VW*0.04, VW*0.54) + 'px';
+  addNode(descNode, bandMid + rnd(-VH*0.12, VH*0.18), {
+    parallax: rnd(0.9, 0.98),
+    baseOp: 0.7,
+    rot: rnd(-2,2),
+    driftAmpY: rnd(4,8),
+  });
+
+  // ── TAGS
+  album.tags.forEach((tag, ti) => {
+    const tagNode = txt('el t-mono', '— '+tag, album.color);
+    tagNode.style.left = rnd(VW*0.04, VW*0.76) + 'px';
+    addNode(tagNode, bandMid + VH*(0.18 + ti*0.14) + rnd(-25,25), {
+      parallax: rnd(0.85, 1.1),
+      baseOp: rnd(0.3,0.55),
+      rot: rnd(-3,3),
+    });
+  });
+
+  // ── MAIN COVER
+  const cSize = Math.round(VW * rnd(0.2, 0.3));
+  const coverEl = mkEl('div', 'el cover');
+  coverEl.style.width = cSize+'px';
+  coverEl.style.height = cSize+'px';
+  coverEl.innerHTML = coverSVG(album, ai);
+  const cX = rnd(VW*0.28, VW*0.58);
+  coverEl.style.left = cX+'px';
+  addNode(coverEl, bandMid - cSize*0.5, {
+    parallax: rnd(0.72, 0.83),
+    baseOp: 0.95,
+    rot: rnd(-8, 8),
+    driftAmpX: rnd(4,10),
+    driftAmpY: rnd(3,7),
+  });
+
+  // ── SECOND COVER (smaller, offset)
+  const c2Size = Math.round(cSize * rnd(0.42, 0.62));
+  const cover2El = mkEl('div', 'el cover');
+  cover2El.style.width = c2Size+'px';
+  cover2El.style.height = c2Size+'px';
+  cover2El.innerHTML = coverSVG(album, ai+10);
+  cover2El.style.left = (cX + cSize + rnd(-c2Size*0.1, c2Size*0.7)) + 'px';
+  addNode(cover2El, bandMid + rnd(-VH*0.35, VH*0.15), {
+    parallax: rnd(1.05, 1.18),
+    baseOp: rnd(0.4, 0.65),
+    rot: rnd(-18, 18),
+    driftAmpX: rnd(6,12),
+  });
+
+  // ── PHOTOS (2–3)
+  const nPhotos = pick([2,3]);
+  for (let pi=0; pi<nPhotos; pi++) {
+    const pw = Math.round(VW * rnd(0.11, 0.26));
+    const ph = Math.round(pw * rnd(0.6, 1.55));
+    const photoEl = mkEl('div', 'el photo');
+    photoEl.style.width = pw+'px';
+    photoEl.style.height = ph+'px';
+    photoEl.innerHTML = photoSVG(ai*4+pi);
+    photoEl.style.left = rnd(VW*0.01, VW*0.72) + 'px';
+    addNode(photoEl, bandMid + rnd(-VH*0.7, VH*0.55), {
+      parallax: rnd(0.65, 1.2),
+      baseOp: rnd(0.38, 0.72),
+      rot: rnd(-14, 14),
+      driftAmpX: rnd(3,8),
+      driftAmpY: rnd(2,6),
+    });
+  }
+
+  // ── LINES
+  for (let li=0; li<4; li++) {
+    const lineEl = mkEl('div', 'el line');
+    const horiz = Math.random()>0.35;
+    const len   = rnd(40, VW*0.28);
+    lineEl.style.width  = horiz ? len+'px' : '1px';
+    lineEl.style.height = horiz ? '1px'    : len+'px';
+    lineEl.style.background = `rgba(237,232,223,${rnd(0.05,0.22)})`;
+    lineEl.style.left = rnd(VW*0.02, VW*0.88) + 'px';
+    addNode(lineEl, bandMid + rnd(-VH*0.75, VH*0.65), {
+      parallax: rnd(0.75, 1.28),
+      baseOp: rnd(0.08, 0.28),
+      rot: horiz ? rnd(-3,3) : rnd(-45,45),
+    });
+  }
+
+  // ── DOTS
+  for (let di=0; di<6; di++) {
+    const dotEl = mkEl('div', 'el dot');
+    const ds = rnd(3, 11);
+    dotEl.style.width  = ds+'px';
+    dotEl.style.height = ds+'px';
+    dotEl.style.background = Math.random()>0.5 ? album.color : 'rgba(237,232,223,0.55)';
+    dotEl.style.left = rnd(VW*0.02, VW*0.94) + 'px';
+    addNode(dotEl, bandMid + rnd(-VH*0.85, VH*0.75), {
+      parallax: rnd(0.45, 1.45),
+      baseOp: rnd(0.2, 0.75),
+      driftAmpX: rnd(8,18),
+      driftAmpY: rnd(6,14),
+    });
+  }
+
+  // ── GHOST RINGS
+  for (let ci=0; ci<3; ci++) {
+    const ringEl = mkEl('div', 'el ring');
+    const rs = rnd(VW*0.12, VW*0.5);
+    ringEl.style.width  = rs+'px';
+    ringEl.style.height = rs+'px';
+    ringEl.style.borderColor = album.color;
+    ringEl.style.left = rnd(-rs*0.3, VW*0.75) + 'px';
+    addNode(ringEl, bandMid + rnd(-VH*0.65, VH*0.5), {
+      parallax: rnd(0.35, 0.72),
+      baseOp: rnd(0.04, 0.15),
+      driftAmpX: rnd(12,22),
+      driftAmpY: rnd(8,16),
+    });
+  }
+
+  // ── LARGE GHOST TITLE (very transparent echo behind)
+  const echoNode = txt('el t-massive', album.title, album.color);
+  echoNode.style.left = rnd(VW*0.05, VW*0.15) + 'px';
+  echoNode.style.whiteSpace = 'nowrap';
+  addNode(echoNode, bandMid + VH*0.3, {
+    parallax: rnd(1.15, 1.3),
+    baseOp: rnd(0.04, 0.1),
+    rot: rnd(-8, 8),
+  });
+});
+
+/* ═══════════════════════════════════════════
+   SCROLL + DRIFT ENGINE
+═══════════════════════════════════════════ */
+let driftT = 0;
+
+function update() {
+  const scrollY = window.scrollY;
+  const maxScroll = SCROLL_PX();
+  const progress = clamp(scrollY / maxScroll, 0, 1);
+  const baseWorldY = -progress * WORLD_PX();
+
+  // Move world
+  world.style.transform = `translateY(${baseWorldY}px)`;
+
+  // Per-element
+  const vpCenter = VH * 0.5; // viewport center
+
+  elems.forEach(e => {
+    // Screen Y of element center (after world transform + parallax shift)
+    // Parallax: elements with p<1 are "behind" (move slower = closer to horizon)
+    // elements with p>1 are "in front" (move faster = nearer)
+    const parallaxOffset = (e.parallax - 1) * scrollY * -0.3;
+    const screenY = e.worldY + baseWorldY + parallaxOffset + 40; // +40 approx center
+
+    const dist = Math.abs(screenY - vpCenter);
+    const fadeIn  = VH * 0.28;
+    const fadeOut = VH * 1.15;
+
+    let op = 0;
+    if (dist < fadeIn) {
+      op = e.baseOp;
+    } else if (dist < fadeOut) {
+      op = e.baseOp * Math.pow(1 - (dist - fadeIn)/(fadeOut - fadeIn), 1.8);
+    }
+
+    // Drift
+    const dx = Math.sin(driftT * e.driftSpeed + e.driftPhase) * e.driftAmpX;
+    const dy = Math.cos(driftT * e.driftSpeed * 1.3 + e.driftPhase + 1) * e.driftAmpY;
+
+    e.node.style.opacity = clamp(op, 0, 1);
+    e.node.style.transform = `translate(${dx}px, ${parallaxOffset + dy}px) rotate(${e.rot}deg)`;
+  });
+}
+
+window.addEventListener('scroll', update, { passive: true });
+
+// Drift animation loop (runs at ~30fps for perf)
+let lastDrift = 0;
+function driftLoop(ts) {
+  if (ts - lastDrift > 33) {
+    driftT++;
+    lastDrift = ts;
+    update();
+  }
+  requestAnimationFrame(driftLoop);
+}
+requestAnimationFrame(driftLoop);
+update();
+
+/* ═══════════════════════════════════════════
+   SUBPAGES
+═══════════════════════════════════════════ */
+function openSub(page) {
+  const overlay = document.getElementById('subpages');
+  const content = document.getElementById('sp-content');
+  overlay.classList.add('open');
+  overlay.scrollTop = 0;
+  content.innerHTML = buildPage(page);
+}
+function closeSub() {
+  document.getElementById('subpages').classList.remove('open');
+}
+
+function buildPage(page) {
+  if (page === 'projects') return `
+    <h1 class="sp-h">Projekty</h1>
+    <div class="pj-list">
+      ${[['01','Szlest','urban ambient / field recording / 2019–ongoing'],
+         ['02','Nota contra Notam','minimalism / counterpoint / 2020'],
+         ['03','Among Other Sounds','collaborative / improvisation / 2021'],
+         ['04','Drumless Blond Heads','beatless ambient / texture / 2021']
+        ].map(([n,name,sub])=>`
+        <div class="pj-row">
+          <span class="pj-n">${n}</span>
+          <span class="pj-name">${name}</span>
+          <span class="pj-sub">${sub}</span>
+        </div>`).join('')}
+    </div>`;
+
+  if (page === 'products') return `
+    <h1 class="sp-h">Produkty</h1>
+    <div class="pr-grid">
+      ${albums.slice(0,8).map((a,i)=>`
+        <div class="pr-card">
+          <div class="pr-art">${coverSVG(a,i+20)}</div>
+          <div class="pr-title">${a.title}</div>
+          <div class="pr-fmt">${['Vinyl 180g','Kaseta','Digital WAV','CD Digipak','2×LP','Vinyl','Digital','Kaseta'][i]}</div>
+          <div class="pr-price">${[89,35,25,120,140,75,20,30][i]} PLN</div>
+        </div>`).join('')}
+    </div>`;
+
+  if (page === 'about') return `
+    <h1 class="sp-h">O mnie</h1>
+    <div class="ab-grid">
+      <div class="ab-portrait">portret</div>
+      <div class="ab-text">
+        <p>Zajmuję się muzyką ambient i eksperymentalną od ponad dekady. Moja praca łączy nagrania terenowe, syntezę elektroniczną i elementy akustyczne w spójną narrację dźwiękową.</p>
+        <p>Fotografia jest dla mnie równorzędnym językiem ekspresji — dokumentuję te same przestrzenie, które nagrywam. Obraz i dźwięk wzajemnie się przenikają, tworząc pełniejszy obraz miejsca i czasu.</p>
+        <p>Mieszkam i pracuję w Polsce, ale moja muzyka powstawała w różnych miejscach Europy, Azji i Ameryki Północnej. Podróż jest nieodłączną częścią procesu twórczego.</p>
+      </div>
+    </div>`;
+
+  if (page === 'gallery') {
+    const items = [
+      ['#0d1520','4/3'],['#150d08','3/4'],['#080d08','1/1'],
+      ['#12080d','16/9'],['#0a0c14','3/4'],['#100810','4/3'],
+      ['#0d0810','1/1'],['#080d10','16/9'],['#0d1008','3/4'],
+      ['#100d08','4/3'],['#08100d','1/1'],['#0d0a08','3/4'],
+    ];
+    return `
+    <h1 class="sp-h">Galeria</h1>
+    <div class="gl-cols">
+      ${items.map(([bg,ar],i)=>`
+        <div class="gl-item">
+          <div class="gl-in" style="background:${bg}">
+            ${photoSVG(i+30)}
+          </div>
+        </div>`).join('')}
+    </div>`;
+  }
+
+  if (page === 'contact') return `
+    <h1 class="sp-h">Kontakt</h1>
+    <div class="ct-body">
+      <p class="ct-intro">Jestem otwarty na współpracę, licencjonowanie muzyki, wystawy fotograficzne i wszelkie projekty na styku dźwięku i obrazu.</p>
+      <a class="ct-row" href="mailto:twoj@email.com"><span class="ct-lbl">Email</span><span class="ct-val">twoj@email.com</span></a>
+      <a class="ct-row" href="#"><span class="ct-lbl">Bandcamp</span><span class="ct-val">nazwaartysty.bandcamp.com</span></a>
+      <a class="ct-row" href="#"><span class="ct-lbl">Instagram</span><span class="ct-val">@nazwaartysty</span></a>
+      <a class="ct-row" href="#"><span class="ct-lbl">SoundCloud</span><span class="ct-val">soundcloud.com/nazwaartysty</span></a>
+    </div>`;
+
+  return '';
+}
+
+/* Keyboard: Escape closes subpage */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeSub();
+});
+
+console.log('%c∿', 'font-size:3rem;color:#c8a040;');
+</script>
+</body>
+</html>
