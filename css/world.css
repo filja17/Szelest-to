@@ -1,0 +1,71 @@
+/* ══════════════════════════════════════
+   world.css — scroll scene & world elements
+══════════════════════════════════════ */
+
+/* ── Starfield canvas ── */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── Scroll scene ── */
+#scene { position: relative; }
+
+#viewport {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+}
+
+#world {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  will-change: transform;
+}
+
+/* ── Base element ── */
+.el {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform, opacity;
+  user-select: none;
+  opacity: 0;
+}
+
+/* ── Visual element types ── */
+.cover {
+  overflow: hidden;
+  border: 1px solid rgba(237,232,223,.12);
+}
+.cover svg { display: block; width: 100%; height: 100%; }
+
+.photo {
+  overflow: hidden;
+  border: 1px solid rgba(237,232,223,.07);
+  filter: grayscale(.3) contrast(1.08) brightness(.9);
+}
+.photo svg { display: block; width: 100%; height: 100%; }
+
+.line {
+  transform-origin: left center;
+}
+
+.dot { border-radius: 50%; }
+
+.ring {
+  border-radius: 50%;
+  border: 1px solid rgba(237,232,223,.1);
+  background: transparent;
+}
+
+/* ── Grain texture overlay ── */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px;
+  mix-blend-mode: overlay;
+}

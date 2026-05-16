@@ -1,0 +1,45 @@
+/* ══════════════════════════════════════
+   reset.css — base reset & root vars
+══════════════════════════════════════ */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --ink:        #07070c;
+  --paper:      #ede8df;
+  --paper-dim:  rgba(237, 232, 223, 0.6);
+  --paper-mute: rgba(237, 232, 223, 0.35);
+  --gold:       #c8a040;
+  --gold-dim:   rgba(200, 160, 64, 0.55);
+  --rust:       #9b3d2b;
+  --sage:       #4a6040;
+
+  --ease-out-quart: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out:    cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+html {
+  scroll-behavior: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--ink);
+  color: var(--paper);
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: rgba(200,160,64,.22); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(200,160,64,.4); }
+
+/* Selection */
+::selection { background: rgba(200,160,64,.18); color: var(--paper); }

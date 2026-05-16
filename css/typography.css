@@ -1,0 +1,54 @@
+/* ══════════════════════════════════════
+   typography.css — all text styles
+══════════════════════════════════════ */
+
+/* ── World element text ── */
+.t-massive {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(4rem, 12vw, 14rem);
+  line-height: .88;
+  white-space: nowrap;
+}
+
+.t-large {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(1.8rem, 4.5vw, 5rem);
+  line-height: .95;
+}
+
+.t-body {
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  font-size: clamp(.82rem, 1.3vw, 1.15rem);
+  line-height: 1.65;
+  max-width: 310px;
+}
+
+.t-mono {
+  font-family: 'VT323', monospace;
+  font-size: clamp(.65rem, 1vw, .88rem);
+  letter-spacing: .25em;
+  text-transform: uppercase;
+}
+
+/* ── Subpage headings ── */
+.sp-h {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(3rem, 8vw, 9rem);
+  line-height: .88;
+  color: var(--paper);
+  margin-bottom: 4rem;
+}
+
+.sp-label {
+  font-family: 'VT323', monospace;
+  font-size: .72rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+  display: block;
+}

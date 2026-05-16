@@ -1,0 +1,52 @@
+/* ══════════════════════════════════════
+   utils.css — animations, helpers, transitions
+══════════════════════════════════════ */
+
+/* ── Page-enter animation for subpages ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  opacity: 0;
+  animation: fadeUp .7s var(--ease-out-quart) both;
+}
+.fade-up.delay-1 { animation-delay: .1s; }
+.fade-up.delay-2 { animation-delay: .22s; }
+.fade-up.delay-3 { animation-delay: .36s; }
+
+/* ── Subpage open transition ── */
+#subpages.open .sp-inner {
+  animation: fadeUp .55s var(--ease-out-quart) both;
+}
+
+/* ── Hover underline ── */
+.underline-hover {
+  position: relative;
+}
+.underline-hover::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width .4s var(--ease-out-quart);
+}
+.underline-hover:hover::after { width: 100%; }
+
+/* ── Visually hidden (accessibility) ── */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* ── No-scroll lock (applied when subpage is open) ── */
+body.no-scroll { overflow: hidden; }
+
+/* ── Thin separator ── */
+.sep {
+  width: 100%; height: 1px;
+  background: rgba(237,232,223,.07);
+  margin: 3rem 0;
+}
