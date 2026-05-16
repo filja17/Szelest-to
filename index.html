@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>∿ ambient portfolio</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=VT323&family=Libre+Baskerville:ital@1&display=swap" rel="stylesheet">
+
+  <!-- Global styles -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/typography.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/world.css">
+  <link rel="stylesheet" href="css/subpages.css">
+  <link rel="stylesheet" href="css/utils.css">
+</head>
+<body>
+
+  <!-- Starfield -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navigation -->
+  <nav id="main-nav">
+    <a class="nav-logo" onclick="closeSub()">∿</a>
+    <ul class="nav-links">
+      <li><a onclick="openSub('projects')">Projekty</a></li>
+      <li><a onclick="openSub('products')">Produkty</a></li>
+      <li><a onclick="openSub('about')">O mnie</a></li>
+      <li><a onclick="openSub('gallery')">Galeria</a></li>
+      <li><a onclick="openSub('contact')">Kontakt</a></li>
+    </ul>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Scroll scene (sticky viewport + world) -->
+  <div id="scene">
+    <div id="viewport">
+      <div id="world"></div>
+    </div>
+  </div>
+
+  <!-- Subpages overlay -->
+  <div id="subpages">
+    <span class="sp-close" onclick="closeSub()">✕ zamknij</span>
+    <div class="sp-inner" id="sp-content"></div>
+  </div>
+
+  <!-- Core scripts (order matters) -->
+  <script src="js/utils.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/svg.js"></script>
+  <script src="js/starfield.js"></script>
+  <script src="js/world.js"></script>
+  <script src="js/scroll.js"></script>
+  <script src="js/subpages.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
